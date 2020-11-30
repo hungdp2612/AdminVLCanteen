@@ -130,10 +130,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ACCOUNTsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AuthController.cs" />
     <Compile Include="Areas\Admin\Controllers\CATEGORiesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CATEGORYtestController.cs" />
     <Compile Include="Areas\Admin\Controllers\FOODsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\FOODtestController.cs" />
+    <Compile Include="Areas\Admin\Middleware\LoginVerification.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -213,6 +213,7 @@
     <Content Include="fonts\fa-solid-900.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\background.jpg" />
     <Content Include="Images\7up.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -320,6 +321,7 @@
     <Content Include="Areas\Admin\Views\CATEGORies\Details.cshtml" />
     <Content Include="Areas\Admin\Views\CATEGORies\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CATEGORies\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Auth\Login.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\dashboard.js" />

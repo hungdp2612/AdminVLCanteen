@@ -6,9 +6,10 @@
 }
 
 <h2>Quản Lý Loại Thực Phẩm</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a class="text-capitalize" href="@Url.Action("Create")">
+        <i class="fas fa-plus-circle"> Thêm danh mục món ăn</i>
+    </a>
 </p>
 
 <!DOCTYPE html>
@@ -74,9 +75,9 @@
                                         @Html.DisplayFor(modelItem => item.STATUS)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                        <a href="@Url.Action("Edit", new { id = item.ID })"><i class="fas fa-edit"></i></a>|
+                                        <a href="@Url.Action("Details", new { id = item.ID })"><i class="fas fa-eye"></i></a> |
+                                        <a href="@Url.Action("Delete", new { id = item.ID })"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                             }

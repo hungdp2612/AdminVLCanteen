@@ -134,7 +134,7 @@
                         <img src="~/Images/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Lý Thị Huyền Châu</a>
+                        <a href="#" class="d-block">@Session["user-fullname"]</a>
                     </div>
                 </div>
 
@@ -152,22 +152,34 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                @if((int)Session["user-role"] == 1)
+                                {
+                                    <li class="nav-item">
+                                        <a href="/Admin/CATEGORies" class="nav-link active">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Loại món ăn</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Admin/FOODs" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Món ăn</p>
+                                        </a>
+                                    </li>
+                                }
+                                @if((int)Session["user-role"]==1)
+                                {
+                                    <li class="nav-item">
+                                        <a href="/Admin/ACCOUNTs" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Tài khoản</p>
+                                        </a>
+                                    </li>
+                                }
                                 <li class="nav-item">
-                                    <a href="/Admin/CATEGORies" class="nav-link active">
+                                    <a href="/Admin/Auth/Logout" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Loại món ăn</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/Admin/FOODs" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Món ăn</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/Admin/ACCOUNTs" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tài khoản</p>
+                                        <p>Đăng Xuất</p>
                                     </a>
                                 </li>
                             </ul>

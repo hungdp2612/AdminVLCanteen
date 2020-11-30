@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using vanlangcanteen.Models;
+using vanlangcanteen.Areas.Admin.Middleware;
 
 namespace vanlangcanteen.Areas.Admin.Controllers
 {
+    [LoginVerification]
     public class CATEGORiesController : Controller
     {
         private QUANLYCANTEENEntities db = new QUANLYCANTEENEntities();
