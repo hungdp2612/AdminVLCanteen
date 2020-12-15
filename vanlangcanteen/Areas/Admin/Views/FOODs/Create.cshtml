@@ -8,7 +8,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "FOODs", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -38,7 +38,7 @@
                 @Html.DropDownList("CATEGORY_ID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CATEGORY_ID, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>  
 
         <div class="form-group">
             @Html.LabelFor(model => model.DESCRIPTION, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -59,10 +59,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IMAGE_URL, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IMAGE_URL, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IMAGE_URL, "", new { @class = "text-danger" })
                 <input class="form-control" type="file" name="Picture" id="IMG" onchange="readPicture(this)" accept="image/jpeg,image/gif,image/png" />
-                <img id="Picture" />
+                <img id="Picture" width="300" />
             </div>
         </div>
 
@@ -88,3 +86,18 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function readPicture(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('img#Picture').attr('src', e.target.result).width(200).height(250);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

@@ -57,6 +57,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -236,7 +237,6 @@
     <Content Include="Images\monnuoc.jpg" />
     <Content Include="Images\thucuong.jpg" />
     <Content Include="Images\user2-160x160.jpg" />
-    <Content Include="Images\phoganuong.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
@@ -322,6 +322,9 @@
     <Content Include="Areas\Admin\Views\CATEGORies\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CATEGORies\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Auth\Login.cshtml" />
+    <Content Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\dashboard.js" />
@@ -414,6 +417,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Upload\Categories\" />
+    <Folder Include="Upload\Foods\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />

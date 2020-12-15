@@ -6,6 +6,7 @@
 //    Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System.ComponentModel.DataAnnotations;
 
 namespace vanlangcanteen.Models
 {
@@ -14,12 +15,14 @@ namespace vanlangcanteen.Models
     
     public partial class CATEGORY
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CATEGORY()
         {
             this.FOODs = new HashSet<FOOD>();
         }
     
         public int ID { get; set; }
+        [Required]
         public string CATEGORY_CODE { get; set; }
         public string CATEGORY_NAME { get; set; }
         public string IMAGE_URL { get; set; }

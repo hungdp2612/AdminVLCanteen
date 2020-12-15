@@ -37,8 +37,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IMAGE_URL, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IMAGE_URL, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IMAGE_URL, "", new { @class = "text-danger" })
+                <input class="form-control" type="file" name="Picture" id="IMG" onchange="readPicture(this)" accept="image/jpeg,image/gif,image/png" />
+                <img id="Picture" src="@Url.Action("Picture", new { Model.ID})" width="250" />
             </div>
         </div>
 
@@ -63,3 +63,18 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+@section Scripts {
+
+    <script>
+        function readPicture(input) {
+            if (input.files && input.files[0])
+                var reader = new FileReader();
+            reader.onload = function (e) {
+                $('img#Picture').attr('src', e.target.result)
+            };
+            reader.readAsDataURL(input.files[0])
+        }
+    </script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+}

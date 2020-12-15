@@ -6,13 +6,17 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Transactions;
 using vanlangcanteen.Models;
+using vanlangcanteen.Areas.Admin.Middleware;
 
 namespace vanlangcanteen.Areas.Admin.Controllers
 {
+    [LoginVerification]
     public class FOODsController : Controller
     {
         private QUANLYCANTEENEntities db = new QUANLYCANTEENEntities();
+        private const string PICTURE_PATH = "~/Upload/Foods/";
 
         // GET: Admin/FOODs
         public ActionResult Index()
@@ -35,7 +39,11 @@ namespace vanlangcanteen.Areas.Admin.Controllers
             }
             return View(fOOD);
         }
-
+        public ActionResult Picture(int id)
+        {
+            var path = Server.MapPath(PICTURE_PATH);
+            return File(path + id, "images");
+        }
         // GET: Admin/FOODs/Create
         public ActionResult Create()
         {
@@ -48,17 +56,35 @@ namespace vanlangcanteen.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FOOD_CODE,FOOD_NAME,CATEGORY_ID,DESCRIPTION,PRICE,IMAGE_URL,STATUS")] FOOD fOOD)
+        public ActionResult Create([Bind(Include = "ID,FOOD_CODE,FOOD_NAME,CATEGORY_ID,DESCRIPTION,PRICE,IMAGE_URL,STATUS")] FOOD fOOD, HttpPostedFileBase picture)
         {
             if (ModelState.IsValid)
             {
-                db.FOODs.Add(fOOD);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                var product = new FOOD();
+                if (picture != null)
+                {
+                    using (var scope = new TransactionScope())
+                    {
+                        product.ID = fOOD.ID;
+                        product.FOOD_CODE = fOOD.FOOD_CODE;
+                        product.FOOD_NAME = fOOD.FOOD_NAME;
+                        product.CATEGORY_ID = fOOD.CATEGORY_ID;
+                        product.DESCRIPTION = fOOD.DESCRIPTION;
+                        product.PRICE = fOOD.PRICE;
+                        product.STATUS = fOOD.STATUS;
+                        db.FOODs.Add(fOOD);
+                        db.SaveChanges();
 
+                        var path = Server.MapPath(PICTURE_PATH);
+                        picture.SaveAs(path + product.ID);
+
+                        scope.Complete();
+                    }
+                }
+                else ModelState.AddModelError("", "Hình ảnh không được tìm thấy");
+            }
             ViewBag.CATEGORY_ID = new SelectList(db.CATEGORies, "ID", "CATEGORY_CODE", fOOD.CATEGORY_ID);
-            return View(fOOD);
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/FOODs/Edit/5
@@ -82,13 +108,30 @@ namespace vanlangcanteen.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FOOD_CODE,FOOD_NAME,CATEGORY_ID,DESCRIPTION,PRICE,IMAGE_URL,STATUS")] FOOD fOOD)
+        public ActionResult Edit(int id,[Bind(Include = "ID,FOOD_CODE,FOOD_NAME,CATEGORY_ID,DESCRIPTION,PRICE,IMAGE_URL,STATUS")] FOOD fOOD, HttpPostedFileBase picture)
         {
             if (ModelState.IsValid)
             {
+                var product = db.FOODs.FirstOrDefault(x => x.ID == id);
+                if (ModelState.IsValid)
+                {
+                    using (var scope = new TransactionScope())
+                    {
+                        db.Entry(db).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        if (picture != null)
+                        {
+                            var path = Server.MapPath(PICTURE_PATH);
+                            picture.SaveAs(path + fOOD.ID);
+                        }
+
+                        scope.Complete();
+                        return RedirectToAction("Index");
+
+                    }
+                }
                 db.Entry(fOOD).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
             ViewBag.CATEGORY_ID = new SelectList(db.CATEGORies, "ID", "CATEGORY_CODE", fOOD.CATEGORY_ID);
             return View(fOOD);

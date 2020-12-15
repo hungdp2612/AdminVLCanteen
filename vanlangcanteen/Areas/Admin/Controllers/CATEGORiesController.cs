@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using vanlangcanteen.Models;
 using vanlangcanteen.Areas.Admin.Middleware;
+using System.Transactions;
 
 namespace vanlangcanteen.Areas.Admin.Controllers
 {
@@ -15,11 +16,12 @@ namespace vanlangcanteen.Areas.Admin.Controllers
     public class CATEGORiesController : Controller
     {
         private QUANLYCANTEENEntities db = new QUANLYCANTEENEntities();
-
+        private const string PICTURE_PATH = "~/Upload/Categories/";
         // GET: Admin/CATEGORies
         public ActionResult Index()
         {
-            return View(db.CATEGORies.ToList());
+            var product = db.CATEGORies.ToList().OrderByDescending(x => x.ID).ToList();
+            return View(product);
         }
 
         // GET: Admin/CATEGORies/Details/5
@@ -37,6 +39,12 @@ namespace vanlangcanteen.Areas.Admin.Controllers
             return View(cATEGORY);
         }
 
+        public ActionResult Picture(int id)
+        {
+            var path = Server.MapPath(PICTURE_PATH);
+            return File(path + id, "images");
+        }
+        [HttpGet]
         // GET: Admin/CATEGORies/Create
         public ActionResult Create()
         {
@@ -48,16 +56,29 @@ namespace vanlangcanteen.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,CATEGORY_CODE,CATEGORY_NAME,IMAGE_URL,STATUS")] CATEGORY cATEGORY)
+        public ActionResult Create([Bind(Include = "ID,CATEGORY_CODE,CATEGORY_NAME,IMAGE_URL,STATUS")] CATEGORY cATEGORY, HttpPostedFileBase picture)
         {
-            if (ModelState.IsValid)
+            var product = new CATEGORY();
+            if(picture != null)
             {
-                db.CATEGORies.Add(cATEGORY);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                using(var scope = new TransactionScope())
+                {
+                    product.CATEGORY_CODE = cATEGORY.CATEGORY_CODE;
+                    product.CATEGORY_NAME = cATEGORY.CATEGORY_NAME;
+                    product.STATUS = cATEGORY.STATUS;
+                    db.CATEGORies.Add(product);
+                    db.SaveChanges();
 
-            return View(cATEGORY);
+                    var path = Server.MapPath(PICTURE_PATH);
+                    picture.SaveAs(path + product.ID);
+                    scope.Complete();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Picture not found!");
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/CATEGORies/Edit/5
@@ -80,15 +101,25 @@ namespace vanlangcanteen.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,CATEGORY_CODE,CATEGORY_NAME,IMAGE_URL,STATUS")] CATEGORY cATEGORY)
+        public ActionResult Edit(int id, CATEGORY cATEGORY, HttpPostedFileBase picture)
         {
-            if (ModelState.IsValid)
+            var product = db.CATEGORies.FirstOrDefault(x => x.ID == id);
+            using (var scope = new TransactionScope())
             {
+                product.CATEGORY_CODE = cATEGORY.CATEGORY_CODE;
+                product.CATEGORY_NAME = cATEGORY.CATEGORY_NAME;
+                product.STATUS = cATEGORY.STATUS;
                 db.Entry(cATEGORY).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                if (picture != null)
+                {
+                    var path = Server.MapPath(PICTURE_PATH);
+                    picture.SaveAs(path + product.ID);
+                }
+                scope.Complete();
             }
-            return View(cATEGORY);
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/CATEGORies/Delete/5
