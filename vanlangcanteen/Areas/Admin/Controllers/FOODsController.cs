@@ -21,8 +21,8 @@ namespace vanlangcanteen.Areas.Admin.Controllers
         // GET: Admin/FOODs
         public ActionResult Index()
         {
-            var fOODs = db.FOODs.Include(f => f.CATEGORY);
-            return View(fOODs.ToList());
+            var fOODs = db.FOODs.ToList().OrderByDescending(x => x.ID).ToList();
+            return View(fOODs);
         }
 
         // GET: Admin/FOODs/Details/5
@@ -72,7 +72,7 @@ namespace vanlangcanteen.Areas.Admin.Controllers
                         product.DESCRIPTION = fOOD.DESCRIPTION;
                         product.PRICE = fOOD.PRICE;
                         product.STATUS = fOOD.STATUS;
-                        db.FOODs.Add(fOOD);
+                        db.FOODs.Add(product);
                         db.SaveChanges();
 
                         var path = Server.MapPath(PICTURE_PATH);
@@ -123,7 +123,7 @@ namespace vanlangcanteen.Areas.Admin.Controllers
                         if (picture != null)
                         {
                             var path = Server.MapPath(PICTURE_PATH);
-                            picture.SaveAs(path + fOOD.ID);
+                            picture.SaveAs(path + product.ID);
                         }
 
                         scope.Complete();

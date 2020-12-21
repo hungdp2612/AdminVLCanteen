@@ -134,6 +134,7 @@
     <Compile Include="Areas\Admin\Controllers\AuthController.cs" />
     <Compile Include="Areas\Admin\Controllers\CATEGORiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\FOODsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ORDERsController.cs" />
     <Compile Include="Areas\Admin\Middleware\LoginVerification.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -325,6 +326,11 @@
     <Content Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </Content>
+    <Content Include="Areas\Admin\Views\ORDERs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ORDERs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ORDERs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ORDERs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ORDERs\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\dashboard.js" />
