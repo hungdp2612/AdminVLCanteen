@@ -22,10 +22,7 @@ namespace vanlangcanteen.Models
         }
 
         public int ID { get; set; }
-        [Required(ErrorMessage = "Không được để trống")]
-        [MinLength(6, ErrorMessage = "Bắt buộc có 6 ký tự")]
-        [MaxLength(6, ErrorMessage = "Bắt buộc có 6 ký tự")]
-        [RegularExpression(@"^(?=.*[A-Z])(?=.*[0-9]).{6,6}$", ErrorMessage = "Chưa đúng định dạng")]
+        
         public string FOOD_CODE { get; set; }
 
         [Required(ErrorMessage = "Không được để trống")]

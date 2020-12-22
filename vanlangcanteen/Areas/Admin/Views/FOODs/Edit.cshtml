@@ -59,6 +59,7 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.IMAGE_URL, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input class="form-control" type="file" name="Picture" id="IMG" onchange="readPicture(this)" accept="image/jpeg,image/gif,image/png" />
                 <img id="Picture" width="300" />
