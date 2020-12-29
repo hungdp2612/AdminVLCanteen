@@ -207,6 +207,7 @@
     <Content Include="Content\OverlayScrollbars.min.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="Content\sb-admin.min.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\summernote-bs4.css" />
     <Content Include="Content\tempusdominus-bootstrap-4.min.css" />
     <Content Include="favicon.ico" />
@@ -235,6 +236,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\comgakho.jpg" />
+    <Content Include="Images\logovanlang.png" />
     <Content Include="Images\monnuoc.jpg" />
     <Content Include="Images\thucuong.jpg" />
     <Content Include="Images\user2-160x160.jpg" />
@@ -326,11 +328,8 @@
     <Content Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </Content>
-    <Content Include="Areas\Admin\Views\ORDERs\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\ORDERs\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\ORDERs\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\ORDERs\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ORDERs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ORDERs\Print.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\dashboard.js" />
@@ -419,6 +418,7 @@
     <Content Include="vendor\font-awesome\scss\_screen-reader.scss" />
     <Content Include="vendor\font-awesome\scss\_stacked.scss" />
     <Content Include="vendor\font-awesome\scss\_variables.scss" />
+    <Content Include="webfonts\SourceSansPro-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

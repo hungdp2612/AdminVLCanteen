@@ -1,64 +1,113 @@
 ﻿@model IEnumerable<vanlangcanteen.Models.ORDER>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Orders";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    var quanlity1 = 0;
+    var total1 = 0;
 }
 
-<h2>Danh sách đơn hàng</h2>
+<h2>DANH SÁCH HÓA ĐƠN</h2>
 
 <p>
-    @Html.ActionLink("Thêm mới đơn hàng", "Create")
+    <a class="text-capitalize" href="@Url.Action("Create")">
+        <i class="fas fa-plus-circle"> Thêm hóa đơn</i>
+    </a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ORDER_CODE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DATE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.STATUS)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FEEDBACK)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ACCOUNT.EMAIL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CUSTOMER.EMAIL)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ORDER_CODE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DATE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.STATUS)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FEEDBACK)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ACCOUNT.EMAIL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CUSTOMER.EMAIL)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="col-12">
+                        <div class="card">
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Mã hóa đơn
+                                            </th>
+                                            <th>
+                                                Ngày
+                                            </th>
+                                            <th>
+                                                Tên khách hàng
+                                            </th>
+                                            <th>
+                                                Số điện thoại
+                                            </th>
+                                            <th>
+                                                Tổng số lượng
+                                            </th>
+                                            <th>
+                                                Tổng tiền
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-</table>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ORDER_CODE)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.DATE)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.CUSTOMER.FULL_NAME)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.CUSTOMER.PHONE_NUMBER)
+                                                </td>
+                                                @foreach (var items in item.ORDER_DETAIL)
+                                                {
+                                                    quanlity1 += items.QUANTITY;
+                                                    total1 += items.PRICE * items.QUANTITY;
+                                                }
+                                                <td>
+                                                    @quanlity1
+                                                </td>
+                                                <td>
+                                                    @total1.ToString("#,###")
+                                                </td>
+                                                <td>
+                                                    <a href=@Url.Action("Edit", new { item.ID})>
+                                                        <i class="fas fa-edit" style="width:20px"></i>
+                                                    </a>
+                                                    <a href=@Url.Action("Detail", new { item.ID})>
+                                                        |
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <a href=@Url.Action("Delete", new { item.ID})>
+                                                        |
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                    <a href=@Url.Action("Print", new { item.ID})>
+                                                        |
+                                                        <i class="fas fa-print"></i>
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                            quanlity1 = 0;
+                                            total1 = 0;
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
