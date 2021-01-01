@@ -154,12 +154,12 @@ table tbody tr:last-child td {
 }
 
 table tfoot td {
-  padding: 10px 20px;
-  background: #FFFFFF;
-  border-bottom: none;
-  font-size: 1.2em;
-  white-space: nowrap; 
-  border-top: 1px solid #AAAAAA; 
+    padding: 10px 20px;
+    background: #00FF00;
+    border-bottom: none;
+    font-size: 1.2em;
+    white-space: nowrap;
+    border-top: 1px solid #AAAAAA;
 }
 
 table tfoot tr:first-child td {

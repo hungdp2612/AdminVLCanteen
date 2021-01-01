@@ -46,10 +46,12 @@
         </section>
 
         <section id="client-info">
-            <span>HÓA ĐƠN MUA HÀNG</span>
+            <br />
             <div id="invoice">
+                <div class="phone">Nhân viên: @Session["user-fullname"]</div>
                 <div class="date">Ngày lập: @Model.DATE</div>
             </div>
+            
         </section>
 
         <div class="clearfix"></div>
@@ -111,7 +113,7 @@
         <div class="clearfix"></div>
         
         <section id="terms">
-            <div id="thanks">Cảm ơn!</div>
+            <span id="title" >Dùng bữa ngon miệng nhé!</span>
             <div>
                 <hr />
                 <div>Lưu ý:</div>

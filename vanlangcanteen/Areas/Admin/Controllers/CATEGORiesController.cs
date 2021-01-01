@@ -99,27 +99,30 @@ namespace vanlangcanteen.Areas.Admin.Controllers
         // POST: Admin/CATEGORies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, CATEGORY cATEGORY, HttpPostedFileBase picture)
         {
             var product = db.CATEGORies.FirstOrDefault(x => x.ID == id);
-            using (var scope = new TransactionScope())
+            if (ModelState.IsValid)
             {
-                product.CATEGORY_CODE = cATEGORY.CATEGORY_CODE;
-                product.CATEGORY_NAME = cATEGORY.CATEGORY_NAME;
-                product.STATUS = cATEGORY.STATUS;
-                db.Entry(cATEGORY).State = EntityState.Modified;
-                db.SaveChanges();
-
-                if (picture != null)
+                using (var scope = new TransactionScope())
                 {
-                    var path = Server.MapPath(PICTURE_PATH);
-                    picture.SaveAs(path + product.ID);
+                    db.Entry(cATEGORY).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    if (picture != null)
+                    {
+                        var path = Server.MapPath(PICTURE_PATH);
+                        picture.SaveAs(path + cATEGORY.ID);
+                    }
+
+                    scope.Complete();
+                    return RedirectToAction("Index");
+
                 }
-                scope.Complete();
             }
-            return RedirectToAction("Index");
+            return View(cATEGORY);
         }
 
         // GET: Admin/CATEGORies/Delete/5
@@ -144,6 +147,10 @@ namespace vanlangcanteen.Areas.Admin.Controllers
         {
             CATEGORY cATEGORY = db.CATEGORies.Find(id);
             db.CATEGORies.Remove(cATEGORY);
+
+            var path = Server.MapPath(PICTURE_PATH);
+            System.IO.File.Delete(path + id);
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }
