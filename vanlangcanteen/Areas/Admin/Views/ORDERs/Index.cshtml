@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<vanlangcanteen.Models.ORDER>
 
 @{
-    ViewBag.Title = "Orders";
+    ViewBag.Title = "Hóa Đơn";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     var quanlity1 = 0;
     var total1 = 0;
@@ -49,7 +49,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                         @foreach (var item in Model)
                                         {
                                             <tr>

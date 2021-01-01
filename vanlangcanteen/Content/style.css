@@ -67,7 +67,7 @@ header {
 
 h2.name {
   font-size: 1.4em;
-  font-weight: normal;
+  font-weight: bold;
   margin: 0;
 }
 
@@ -121,10 +121,10 @@ table td h3{
 }
 
 table .no {
-  color: #FFFFFF;
-  font-size: 1rem;
-  background: #57B223;
-  text-align:center;
+    color: #57B223;
+    font-size: 1rem;
+    background: #99FF00;
+    text-align: center;
 }
 
 table .desc {
@@ -139,8 +139,8 @@ table .qty {
 }
 
 table .total {
-  background: #57B223;
-  color: #FFFFFF;
+    background: #99FF00;
+    color: #57B223;
 }
 
 table td.unit,
@@ -167,10 +167,9 @@ table tfoot tr:first-child td {
 }
 
 table tfoot tr td {
-  color: #57B223;
-  font-size: 1.4em;
-  border-top: 1px solid #57B223; 
-
+    color: #99FF00;
+    font-size: 1.4em;
+    border-top: 1px solid #57B223;
 }
 
 table tfoot tr td:first-child {
@@ -180,15 +179,18 @@ table tfoot tr td:first-child {
 #thanks{
   font-size: 2em;
   margin-bottom: 50px;
+  lighting-color: darkcyan;
 }
 
 #notices{
   padding-left: 6px;
-  border-left: 6px solid #0087C3;  
+  border-left: 6px ; 
+  color:red;
 }
 
 #notices .notice {
   font-size: 1.2em;
+  font-style: oblique;
 }
 
 footer {

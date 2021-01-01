@@ -12,35 +12,66 @@
 <head>
     <meta charset="utf-8">
     <title>Print Review</title>
+    <link href="~/Content/template.css" rel="stylesheet" />
     <link href="~/Content/style.css" rel="stylesheet" />
 </head>
 <body>
-    <header class="clearfix">
-        <div id="logo">
-            <img src="~/Images/logovanlang.png" />
-        </div>
-        <div id="company">
-            <h2 class="name">TRƯỜNG ĐẠI HỌC VĂN LANG</h2>
-            <div>69/68 Đặng Thùy Trâm, P. 13, Q. Bình Thạnh, TP. HCM</div>
-            <div>028. 71099240</div>
-            <div><a href="mailto:k.cntt@vanlanguni.edu.vn">k.cntt@vanlanguni.edu.vn</a></div>
-        </div>
-    </header>
-    <main>
-        <div id="details" class="clearfix">
+    <div id="container">
+        <section id="memo">
+            <div class="company-name">
+                <span>TRƯỜNG ĐẠI HỌC VĂN LANG</span>
+                <div class="right-arrow"></div>
+            </div>
+
+            <div class="logo">
+                <img src="~/Images/logovanlang.png" />
+            </div>
+
+            <div class="company-info">
+                <h2 class="name"></h2>
+                <div>69/68 Đặng Thùy Trâm, P. 13, Q. Bình Thạnh, TP. HCM</div>
+                <div>028. 71099240</div>
+                <div><a href="mailto:k.cntt@vanlanguni.edu.vn">k.cntt@vanlanguni.edu.vn</a></div>
+            </div>
+
+        </section>
+        <hr />
+        <section id="invoice-info">
             <div id="client">
-                <div class="to">@Model.ORDER_CODE</div>
-                <h2 class="name">@Model.CUSTOMER.FULL_NAME</h2>
-                <div class="phone">@Model.CUSTOMER.PHONE_NUMBER</div>
+                <div class="to">Mã hóa đơn: @Model.ORDER_CODE</div>
+                <h2 class="name">Tên khách hàng: @Model.CUSTOMER.FULL_NAME</h2>
+                <div class="phone">Số Điện Thoại: @Model.CUSTOMER.PHONE_NUMBER</div>
             </div>
+
+        </section>
+
+        <section id="client-info">
+            <span>HÓA ĐƠN MUA HÀNG</span>
             <div id="invoice">
-                <h1>HÓA ĐƠN MUA HÀNG</h1>
                 <div class="date">Ngày lập: @Model.DATE</div>
-                <div class="date"></div>
             </div>
-        </div>
-        <table border="0" cellspacing="0" cellpadding="0">
-            <tbody>
+        </section>
+
+        <div class="clearfix"></div>
+
+        <section id="invoice-title-number">
+            <span id="title">HÓA ĐƠN MUA HÀNG</span>
+        </section>
+
+        <div class="clearfix"></div>
+
+        <section id="items">
+
+            <table cellpadding="0" cellspacing="0">
+
+                <tr>
+                    <th class="no">STT</th>
+                    <th class="desc">TÊN SẢN PHẨM</th>
+                    <th class="unit">ĐƠN GIÁ</th>
+                    <th class="qty">SỐ LƯỢNG</th>
+                    <th class="total">THÀNH TIỀN (VNĐ)</th>
+                </tr>
+
                 @foreach (var orderDetail in Model.ORDER_DETAIL)
                 {
                     var total = orderDetail.PRICE * orderDetail.QUANTITY;
@@ -55,37 +86,43 @@
                     total1 += total;
                     i++;
                 }
-            </tbody>
-            <thead>
-                <tr>
-                    <th class="no">#</th>
-                    <th class="desc">TÊN SẢN PHẨM</th>
-                    <th class="unit">ĐƠN GIÁ</th>
-                    <th class="qty">SỐ LƯỢNG (@quanlity1)</th>
-                    <th class="total">THÀNH TIỀN (VNĐ)</th>
-                </tr>
-            </thead>
-            <tfoot>
+
+            </table>
+
+        </section>
+
+        <div class="currency">
+            
+        </div>
+
+        <section id="sums">
+
+            <table cellpadding="0" cellspacing="0">
                 <tr>
                     <td colspan="2"></td>
                     <td colspan="2">TỔNG TIỀN</td>
                     <td>@string.Format("{0:#,#.}", total1) VNĐ</td>
                 </tr>
-            </tfoot>
-        </table>
-        <div id="thanks">Cảm ơn!</div>
-        <div id="notices">
-            <div>Lưu ý:</div>
-            <div class="notice">Hàng mua rồi không trả lại.</div>
-            <div class="col-lg-offset-8" >
-                <div class="btn btn-flat">
-                    <button autofocus onclick="window.print()">IN HOÁ ĐƠN</button>
+
+            </table>
+
+        </section>
+
+        <div class="clearfix"></div>
+        
+        <section id="terms">
+            <div id="thanks">Cảm ơn!</div>
+            <div>
+                <hr />
+                <div>Lưu ý:</div>
+                <div class="notice" >Hàng mua rồi không trả lại.</div>
+                <div id="invoice">
+                    <div class="btn align-content-lg-center">
+                        <button autofocus onclick="window.print()">IN HOÁ ĐƠN</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
-    <footer>
-        Sở hữu thuộc Trường Đại học Văn Lang.
-    </footer>
+        </section>
+    </div>
 </body>
 </html>
