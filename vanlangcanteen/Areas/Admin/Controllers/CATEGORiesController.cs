@@ -59,9 +59,9 @@ namespace vanlangcanteen.Areas.Admin.Controllers
         public ActionResult Create([Bind(Include = "ID,CATEGORY_CODE,CATEGORY_NAME,IMAGE_URL,STATUS")] CATEGORY cATEGORY, HttpPostedFileBase picture)
         {
             var product = new CATEGORY();
-            if(picture != null)
+            if (picture != null)
             {
-                using(var scope = new TransactionScope())
+                using (var scope = new TransactionScope())
                 {
                     product.CATEGORY_CODE = cATEGORY.CATEGORY_CODE;
                     product.CATEGORY_NAME = cATEGORY.CATEGORY_NAME;
@@ -99,20 +99,26 @@ namespace vanlangcanteen.Areas.Admin.Controllers
         // POST: Admin/CATEGORies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost, ValidateInput(false)]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, CATEGORY cATEGORY, HttpPostedFileBase picture)
         {
-            var product = db.CATEGORies.FirstOrDefault(x => x.ID == id);
+            var product = db.CATEGORies.Find(id);
             if (ModelState.IsValid)
             {
                 using (var scope = new TransactionScope())
                 {
-                    db.Entry(cATEGORY).State = EntityState.Modified;
+                    product.ID = cATEGORY.ID;
+                    product.CATEGORY_CODE = cATEGORY.CATEGORY_CODE;
+                    product.CATEGORY_NAME = cATEGORY.CATEGORY_NAME;
+                    product.STATUS = cATEGORY.STATUS;
+
+                    db.Entry(product).State = EntityState.Modified;
                     db.SaveChanges();
 
                     if (picture != null)
                     {
+                        //System.IO.File.WriteAllText(@"D:\test.txt", "ok");
                         var path = Server.MapPath(PICTURE_PATH);
                         picture.SaveAs(path + cATEGORY.ID);
                     }

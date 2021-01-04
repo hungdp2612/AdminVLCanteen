@@ -8,8 +8,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
-{
+<form method="post" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
@@ -37,8 +36,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IMAGE_URL, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input class="form-control" type="file" name="Picture" id="IMG" onchange="readPicture(this)" accept="image/jpeg,image/gif,image/png" />
-                <img id="Picture" src="@Url.Action("Picture", new { Model.ID})" width="250" />
+                <input class="form-control" type="file" name="picture" id="IMG" onchange="readPicture(this)" accept="image/jpeg,image/gif,image/png" />
+                <img id="picture" src="@Url.Action("Picture", new { Model.ID})" width="250" />
             </div>
         </div>
 
@@ -58,7 +57,7 @@
             </div>
         </div>
     </div>
-}
+</form>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -70,7 +69,7 @@
             if (input.files && input.files[0])
                 var reader = new FileReader();
             reader.onload = function (e) {
-                $('img#Picture').attr('src', e.target.result)
+                $('img#picture').attr('src', e.target.result)
             };
             reader.readAsDataURL(input.files[0])
         }

@@ -112,12 +112,20 @@ namespace vanlangcanteen.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var product = db.FOODs.FirstOrDefault(x => x.ID == id);
+                var product = db.FOODs.Find(id);
                 if (ModelState.IsValid)
                 {
                     using (var scope = new TransactionScope())
                     {
-                        db.Entry(db).State = EntityState.Modified;
+                        product.ID = fOOD.ID;
+                        product.FOOD_CODE = fOOD.FOOD_CODE;
+                        product.FOOD_NAME = fOOD.FOOD_NAME;
+                        product.CATEGORY_ID = fOOD.CATEGORY_ID;
+                        product.DESCRIPTION = fOOD.DESCRIPTION;
+                        product.PRICE = fOOD.PRICE;
+                        product.STATUS = fOOD.STATUS;
+
+                        db.Entry(product).State = EntityState.Modified;
                         db.SaveChanges();
 
                         if (picture != null)

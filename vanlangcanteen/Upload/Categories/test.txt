@@ -1,0 +1,19 @@
+MNC
+Món nước
+TruePHO
+Phở
+True1
+COM
+Đồ ăn cơm
+True1
+COM
+Đồ ăn cơm
+True
+2
+TUG
+Thức uống
+True
+33
+PHO
+Phở
+True
